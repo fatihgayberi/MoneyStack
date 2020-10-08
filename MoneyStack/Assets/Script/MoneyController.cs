@@ -63,7 +63,6 @@ public class MoneyController : MonoBehaviour
 
                 if (currentX >= -5)
                 {
-                    Debug.Log("asdf");
                     change = true;
                 }
             }

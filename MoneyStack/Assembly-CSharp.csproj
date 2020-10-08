@@ -56,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\MoneyController.cs" />
+    <Compile Include="Assets\Script\CameraFollow.cs" />
+    <Compile Include="Assets\Script\MoneyCreate.cs" />
+    <Compile Include="Assets\Script\BanknoteStack.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

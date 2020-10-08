@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Money5
+  - Money10
+  - Money20
+  - Money50
+  - Money100
+  - Money200
+  - Saw
   layers:
   - Default
   - TransparentFX
