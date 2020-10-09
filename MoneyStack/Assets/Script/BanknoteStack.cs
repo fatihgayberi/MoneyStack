@@ -10,13 +10,7 @@ public class BanknoteStack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Contains("Money"))
-        {
-            banknote.Add(other.gameObject);
-            other.gameObject.transform.parent = transform;
-            banknoteHeight += 0.5f;
-            other.gameObject.transform.position = new Vector3(transform.position.x, banknoteHeight, transform.position.z);
-        }
+
         if (other.CompareTag("Saw"))
         {
             other.GetComponent<Collider>().enabled = false;
@@ -29,6 +23,13 @@ public class BanknoteStack : MonoBehaviour
             }
             banknoteHeight -= 0.5f;
             downHeight = 0.25f;
+        }
+        else// (other.tag.Contains("Money"))
+        {
+            banknote.Add(other.gameObject);
+            other.gameObject.transform.parent = transform;
+            banknoteHeight += 0.5f;
+            other.gameObject.transform.position = new Vector3(transform.position.x, banknoteHeight, transform.position.z);
         }
     }
 }
