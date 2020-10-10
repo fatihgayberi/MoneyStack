@@ -46,7 +46,7 @@ public class MoneyController : MonoBehaviour
         {
             endX = Input.mousePosition.x;
 
-            if (endX - firstX > 0)
+            if (endX - firstX > 50)
             {
                 // RIGHT
                 currentX = transform.position.x + 5f;
@@ -56,7 +56,7 @@ public class MoneyController : MonoBehaviour
                     change = true;
                 }
             }
-            if (endX - firstX < 0)
+            if (endX - firstX < -50)
             {
                 // LEFT
                 currentX = transform.position.x - 5f;

@@ -10,7 +10,7 @@ public class BanknoteStack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Contains("Money"))
+        if (other.name.Contains("Money"))
         {
             banknote.Add(other.gameObject);
             other.gameObject.transform.parent = transform;
