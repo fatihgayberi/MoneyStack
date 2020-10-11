@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BanknoteStack : MonoBehaviour
@@ -17,7 +18,7 @@ public class BanknoteStack : MonoBehaviour
             banknoteHeight += 0.5f;
             other.gameObject.transform.position = new Vector3(transform.position.x, banknoteHeight, transform.position.z);
         }
-        if (other.CompareTag("Saw"))
+        if (other.CompareTag("Saw") && banknote.Any())
         {
             other.GetComponent<Collider>().enabled = false;
             Destroy(banknote[0]);
@@ -30,5 +31,10 @@ public class BanknoteStack : MonoBehaviour
             banknoteHeight -= 0.5f;
             downHeight = 0.25f;
         }
+    }
+
+    public void SetBanknoteHeight(float banknoteHeight)
+    {
+        this.banknoteHeight = banknoteHeight;
     }
 }

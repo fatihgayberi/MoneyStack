@@ -27,7 +27,7 @@ public class MoneyChange : MonoBehaviour
         {
             endY = Input.mousePosition.y;
 
-            if (endY - firstY < -50)
+            if (endY - firstY < -50 && BanknoteStack.banknote.Count > 1)
             {
                 // DOWN
 
@@ -44,42 +44,66 @@ public class MoneyChange : MonoBehaviour
         for (int i = 0; i < BanknoteStack.banknote.Count - 1; i++)
         {
             int sum = 0;
-            for (int j = 0; j < BanknoteStack.banknote.Count - i; j++)
+
+            for (int j = i; j < BanknoteStack.banknote.Count; j++)
             {
                 sum += int.Parse(BanknoteStack.banknote[j].tag);
 
-                for (int k = 0; k < moneyPrice.Length; k++)
+                if (i != j)
                 {
-                    if (sum > maxSum && sum == moneyPrice[k])
+                    for (int k = 0; k < moneyPrice.Length; k++)
                     {
-                        maxSum = sum;
-                        startIdx = i;
-                        endIdx = j;
-                        Debug.Log(maxSum);
-                        //break;
+                        if (/*sum > maxSum && */sum == moneyPrice[k])
+                        {
+                            maxSum = sum;
+                            startIdx = i;
+                            endIdx = j;
+                            Debug.Log("startIdx: " + startIdx);
+                            Debug.Log("endIdx: " + endIdx);
+                            Debug.Log("maxSum: " + maxSum);
+                            MoneyMerge(maxSum, startIdx, endIdx);
+                            sum = 0;
+                        }
                     }
                 }
             }
         }
-        //MoneyMerge(maxSum, startIdx, endIdx);
     }
 
     void MoneyMerge(int maxSum, int startIdx, int endIdx)
     {
         GameObject newMoney;
 
+        for (int i = 0; i <= endIdx - startIdx; i++)
+        {
+            Destroy(BanknoteStack.banknote[startIdx]);
+            BanknoteStack.banknote.Remove(BanknoteStack.banknote[startIdx]);
+        }
+
         for (int i = 0; i < allMoney.Length; i++)
         {
             if (allMoney[i].CompareTag(maxSum.ToString()))
             {
-                newMoney = Instantiate(allMoney[i], BanknoteStack.banknote[startIdx].transform.position, Quaternion.identity);
+                newMoney = Instantiate(allMoney[i]);
+                BanknoteStack.banknote.Insert(startIdx, newMoney);
+                newMoney.transform.parent = transform;
+                break;
             }
         }
 
-        for (int i = 0; i < endIdx - startIdx; i++)
+        PositionEditor();
+    }
+
+    void PositionEditor()
+    {
+        float banknoteHeight = 0.25f;
+
+        for (int i = 0; i < BanknoteStack.banknote.Count; i++)
         {
-            BanknoteStack.banknote.Remove(BanknoteStack.banknote[i]);
-            Destroy(BanknoteStack.banknote[i]);
+            BanknoteStack.banknote[i].transform.position = new Vector3(transform.position.x, banknoteHeight, transform.position.z);
+            banknoteHeight += 0.5f;
         }
+
+        BanknoteStack.SetBanknoteHeight(banknoteHeight - 0.5f);
     }
 }
